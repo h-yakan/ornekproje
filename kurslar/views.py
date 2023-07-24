@@ -2,8 +2,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseNotFound
 from django.urls import reverse
 
-def home(Req):
-    return HttpResponse('Anasayfa')
+
 
 data = {
     'programlama':'programlama kurslarının listesi',
