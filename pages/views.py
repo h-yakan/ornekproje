@@ -5,7 +5,7 @@ def index(request):
     return render(request, 'index.html')
 
 def getHakkimizda(req):
-    return HttpResponse('Hakkımızda')
+    return render(req, 'hakkimizda.html')
 
 def home(Req):
     return HttpResponse('Anasayfa')
@@ -13,3 +13,6 @@ def home(Req):
 def getAsd(req,asd):
     return HttpResponse(asd)
 
+def iletisim(req):
+    return render(req, 'iletisim.html')
+    
