@@ -9,17 +9,17 @@ data = {
     "Kurslar":[
         {"title":"Javascript Kursu",
                "description": "js kurs açıklaması",
-               "imageUrl":"",
+               "imageUrl":"https://img-c.udemycdn.com/course/100x100/1258436_2dc3_4.jpg",
                "slug":"javascript-kursu",
                "date": date(2022,2,2),
                "isActive":True
                },
         {"title":"Python Kursu",
                "description": "py kurs açıklaması",
-               "imageUrl":"",
+               "imageUrl":"https://img-c.udemycdn.com/course/100x100/2463492_8344_3.jpg",
                "slug":"py-kursu",
                "date": date(2022,3,2),
-               "isActive":False
+               "isActive":True
                }
         ],
     "kategoriler":
@@ -27,20 +27,26 @@ data = {
 }
 
 def index(req):
-   kurslar = data["Kurslar"]
+   kurslar = []
    kategoriler = data["kategoriler"]
-
-   return render(req,'courses/index.html',{'Kurslar': kurslar, 'Kategoriler': kategoriler} )
+   for kurs in data["Kurslar"]:
+       if kurs["isActive"]:
+           kurslar.append(kurs) 
+   return render(req,'kurs.html',{'Kurslar': kurslar, 'Kategoriler': kategoriler} )
 
 def getByCategoryName(req,category_name):
     try:
-        return HttpResponse(f'{data[category_name]}')
+        category_text = data[category_name]
+        return render(req,'kurslar/kurs.html',{
+            'category': category_name,
+            'category_text': category_text
+        })
     except:
         return HttpResponse('Yanlış Kategori')
     
 
 def getByCategoryNum(req, category_id):
-    category_list = list(data.keys())
+    category_list = list(data["kategoriler"].keys())
     if(category_id>len(category_list)):
         return HttpResponseNotFound("Yanlış Kategori")
     category = category_list[category_id-1]

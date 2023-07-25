@@ -7,23 +7,9 @@
     <title>Document</title>
 </head>
 <body>
-    <!--navbar{% include 'partials/_nav.html' %}-->
-    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
-        <div class="container">
-            <a href="/" class="navbar-brand">Kurs Uygulaması</a>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="/kurslar" class="nav-link">Kurslar</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/iletisim" class="nav-link">İletişim</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/hakkimizda" class="nav-link">Hakkımızda</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <!--navbar-->
+    {% include 'partials/_nav.html' %}
+    
    
     {% block Content %}
     <!--CONTENT-->

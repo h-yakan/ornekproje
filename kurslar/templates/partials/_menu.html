@@ -1,5 +1,5 @@
 <div class="list-group">
-    {% for Kurs in Kurslar %}
-    <a href="url 'courses_by_category' Kurs.slug" class="list-group-item list-group-item-action">{{Kurs.name}}</a>
+    {% for Kurs in Kategoriler %}
+    <a href="{% url 'courses_by_category' Kurs.slug %}" class="list-group-item list-group-item-action">{{Kurs.name}}</a>
     {% endfor %}
 </div>
