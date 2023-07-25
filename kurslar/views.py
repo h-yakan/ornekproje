@@ -1,3 +1,4 @@
+from datetime import date
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseNotFound
 from django.urls import reverse
@@ -5,20 +6,31 @@ from django.urls import reverse
 
 
 data = {
-    'programlama':'programlama kurslarının listesi',
-    'mobil':'mobil kurslarının listesi',
-    'web': 'web kurslarının listesi'
+    "Kurslar":[
+        {"title":"Javascript Kursu",
+               "description": "js kurs açıklaması",
+               "imageUrl":"",
+               "slug":"javascript-kursu",
+               "date": date(2022,2,2),
+               "isActive":True
+               },
+        {"title":"Python Kursu",
+               "description": "py kurs açıklaması",
+               "imageUrl":"",
+               "slug":"py-kursu",
+               "date": date(2022,3,2),
+               "isActive":False
+               }
+        ],
+    "kategoriler":
+        [{"name":"programlama","id":1,"slug":"programlama"},{"name":"web geliştirme","id":2,"slug":"web-gelistirme"}]
 }
 
-def kurslar(req):
-    list_items = ""
-    category_list = list(data.keys())
-    for category in category_list:
-        redirected_url = reverse('courses_by_category',args=[category])
-        list_items += f"<li><a href='{redirected_url}'>{category}</a></li>"
+def index(req):
+   kurslar = data["Kurslar"]
+   kategoriler = data["kategoriler"]
 
-    html = f"<h1>kurs listesi</h1><br><ul>{list_items}</ul>"
-    return HttpResponse(html)
+   return render(req,'courses/index.html',{'Kurslar': kurslar, 'Kategoriler': kategoriler} )
 
 def getByCategoryName(req,category_name):
     try:
