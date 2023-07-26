@@ -1,45 +1,34 @@
 from datetime import date
 from django.shortcuts import redirect, render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import Http404, HttpResponse, HttpResponseNotFound
 from django.urls import reverse
 from .models import Kurs
 from .models import Kategoriler
 
-data = {
-    "Kurslar":[
-        {"title":"Javascript Kursu",
-               "description": "js kurs açıklaması",
-               "imageUrl":"https://img-c.udemycdn.com/course/100x100/1258436_2dc3_4.jpg",
-               "slug":"javascript-kursu",
-               "date": date(2022,2,2),
-               "isActive":True
-               },
-        {"title":"Python Kursu",
-               "description": "py kurs açıklaması",
-               "imageUrl":"https://img-c.udemycdn.com/course/100x100/2463492_8344_3.jpg",
-               "slug":"py-kursu",
-               "date": date(2022,3,2),
-               "isActive":True
-               }
-        ],
-    "kategoriler":
-        [{"name":"programlama","id":1,"slug":"programlama"},{"name":"web geliştirme","id":2,"slug":"web-gelistirme"}]
-}
 
 def index(req):
    kurslar = Kurs.objects.filter(isActive = 1)
    kategoriler = Kategoriler.objects.all()
    return render(req,'kurs.html',{'Kurslar': kurslar, 'Kategoriler': kategoriler} )
 
+def detay(req,name):
+    try:
+        kurs= Kurs.objects.filter(slug__startswith = name)
+        return render(req,'detay.html',{
+            'Kurs': kurs
+        })
+    except:
+        return Http404
+
 def getByCategoryName(req,category_name):
     try:
-        category_text = data[category_name]
-        return render(req,'kurslar/kurs.html',{
-            'category': category_name,
-            'category_text': category_text
+        category_text = Kategoriler.objects.filter(name= category_name)
+        return render(req,'kurs.html',{
+            'Kategori': category_text,
         })
     except:
         return HttpResponse('Yanlış Kategori')
+    
     
 
 def getByCategoryNum(req, category_id):
@@ -49,6 +38,3 @@ def getByCategoryNum(req, category_id):
     category = category_list[category_id-1]
     redirected_url = reverse('courses_by_category',args=[category.slug])
     return redirect(redirected_url)
-
-def getAsd(req, kurs_adi):
-    return HttpResponse(kurs_adi)
