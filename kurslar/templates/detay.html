@@ -2,8 +2,11 @@
 
 {% block Content %}
 <div class="container mt-3"><!--yukarıdan 3 aşağı taşıyor mt-3-->
-    <div class="row">   
-        <div class="col-3"><!--solda menü olsun diye ayırdık-->
+     
+    <div class="row">
+        {% for kurs in Kurs %}
+        <div class="col-3">
+           
             <!--Menü-->
             <img class="img-fluid rounded" src="{{kurs.imageUrl}}" alt={{kurs.title}}>
         </div>
@@ -13,7 +16,9 @@
                 {{kurs.description}}
             </p>
         </div>
+        {% endfor %}
             <!--içerikler-->
     </div>
+    
 </div>
 {% endblock Content %}
