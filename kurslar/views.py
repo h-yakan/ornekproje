@@ -2,8 +2,8 @@ from datetime import date
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseNotFound
 from django.urls import reverse
-
-
+from .models import Kurs
+from .models import Kategoriler
 
 data = {
     "Kurslar":[
@@ -27,11 +27,8 @@ data = {
 }
 
 def index(req):
-   kurslar = []
-   kategoriler = data["kategoriler"]
-   for kurs in data["Kurslar"]:
-       if kurs["isActive"]:
-           kurslar.append(kurs) 
+   kurslar = Kurs.objects.filter(isActive = 1)
+   kategoriler = Kategoriler.objects.all()
    return render(req,'kurs.html',{'Kurslar': kurslar, 'Kategoriler': kategoriler} )
 
 def getByCategoryName(req,category_name):
@@ -46,11 +43,11 @@ def getByCategoryName(req,category_name):
     
 
 def getByCategoryNum(req, category_id):
-    category_list = list(data["kategoriler"].keys())
+    category_list = Kategoriler.objects.all()
     if(category_id>len(category_list)):
         return HttpResponseNotFound("Yanlış Kategori")
     category = category_list[category_id-1]
-    redirected_url = reverse('courses_by_category',args=[category])
+    redirected_url = reverse('courses_by_category',args=[category.slug])
     return redirect(redirected_url)
 
 def getAsd(req, kurs_adi):
