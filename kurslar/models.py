@@ -1,7 +1,7 @@
 
 import datetime
 from django.db import models
-
+from django.utils.text import slugify
 
     
 class Kategoriler(models.Model):
@@ -22,3 +22,7 @@ class Kurs(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+    
+    def save(self,*args,**kwargs):
+        self.slug=slugify(self.title)
+        super().save(args,kwargs)
