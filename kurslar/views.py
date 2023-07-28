@@ -1,15 +1,17 @@
 from datetime import date
 from django.shortcuts import redirect, render
-from django.http import Http404, HttpResponse, HttpResponseNotFound
-from django.urls import reverse
+from django.http import Http404
 from .models import Kurs
 from .models import Kategoriler
-
+from django.core.paginator import Paginator
 
 def index(req):
    kurslar = Kurs.objects.filter(isActive = 1)
+   kursp = Paginator(kurslar,2)
+   sayfa_sayi = req.GET.get('page',1)
+   paged_kurs = kursp.get_page(sayfa_sayi)
    kategoriler = Kategoriler.objects.all()
-   return render(req,'kurs.html',{'Kurslar': kurslar, 'Kategoriler': kategoriler} )
+   return render(req,'kurs.html',{'Kurslar': paged_kurs, 'Kategoriler': kategoriler} )
 
 def detay(req,name):
     try:
@@ -19,22 +21,24 @@ def detay(req,name):
         })
     except:
         return Http404
-
-def getByCategoryName(req,category_name):
-    try:
-        category_text = Kategoriler.objects.filter(name= category_name)
-        return render(req,'kurs.html',{
-            'Kategori': category_text,
-        })
-    except:
-        return HttpResponse('Yanlış Kategori')
     
-    
+def search(req):
+    if "q" in req.GET and req.GET["q"] !="":
+        q = req.GET["q"]
+        kurslar = Kurs.objects.filter(isActive=True, title__contains=q)
+        kategoriler=  Kategoriler.objects.all()
+    else:
+        return redirect("/kurslar")
+    kursp = Paginator(kurslar,2)
+    sayfa_sayi = req.GET.get('page',1)
+    paged_kurs = kursp.get_page(sayfa_sayi)
+     
+    return render(req,'kurs.html',{'Kurslar': paged_kurs, 'Kategoriler': kategoriler} )
 
-def getByCategoryNum(req, category_id):
-    category_list = Kategoriler.objects.all()
-    if(category_id>len(category_list)):
-        return HttpResponseNotFound("Yanlış Kategori")
-    category = category_list[category_id-1]
-    redirected_url = reverse('courses_by_category',args=[category.slug])
-    return redirect(redirected_url)
+def getByCategoryName(req,slug):
+    kurs = Kurs.objects.filter(kategori__slug=slug,isActive=True)
+    kategori=Kategoriler.objects.all()
+    kursp = Paginator(kurs,2)
+    sayfa_sayi = req.GET.get('page',1)
+    paged_kurs = kursp.get_page(sayfa_sayi)
+    return render(req,'kurs.html',{'Kurslar': paged_kurs, 'Kategoriler':kategori,'seciliKategori':slug})
