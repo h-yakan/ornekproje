@@ -1,5 +1,5 @@
 from datetime import date
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.http import Http404
 
 from kurslar.forms import KursGiris
@@ -61,4 +61,28 @@ def getByCategoryName(req,slug):
 
 def kursListesi(req):
     kurslar = Kurs.objects.all()
-    return render(req,'kurs.html',{'Kurslar': kurslar})
+    return render(req,'kursListesi.html',{'Kurslar': kurslar})
+
+def kursDuzenle(req,slug):
+
+    kurs = get_object_or_404(Kurs,slug = slug)
+    if req.method == "POST":
+        form = KursGiris(req.POST, instance=kurs)
+        form.save()
+        return redirect("/kurslar/kursListesi")
+    form = KursGiris(instance=kurs)
+
+    return render(req,'kursDuzenle.html',{'form':form}) 
+
+
+def kursSil(req,slug):
+    kurs = get_object_or_404(Kurs,slug = slug)
+    if req.method == "POST":
+        kurs.delete()
+        return redirect("kursListesi")
+    return render(req,'kursSil.html',{'kurs':kurs})
+
+def imgUpload(req):
+    if req.method == "POST":
+        uploaded_image = req.FILES['image']
+        return render(req,'success.html') 
