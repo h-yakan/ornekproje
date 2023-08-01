@@ -10,13 +10,13 @@ from kurslar.models import Kurs
 class KursGiris(forms.ModelForm):
     class Meta:
         model = Kurs
-        fields = ('title','description','imageUrl','kategori')
+        fields = ('title','description','image','kategori')
+        
         labels = {'title':'Kurs Başlığı',
                   'description':'Kurs Açıklaması',
-                  'imageUrl':'Kurs Resmi',
+                  'image':'Kurs Resmi',
                   'kategori':'Kurs Kategorileri'}
         
         widgets = {'title':forms.TextInput(attrs={"class":"form-control",}),
                    'description':forms.Textarea(attrs={"class":"form-control",}),
-                   'imageUrl':forms.TextInput(attrs={"class":"form-control",}),
                    'kategori':forms.SelectMultiple(attrs={"class":"form-control",})}

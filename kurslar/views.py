@@ -1,4 +1,4 @@
-from datetime import date
+
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import Http404
 
@@ -43,7 +43,7 @@ def kursGir(req):
         if form.is_valid():
             kurs = Kurs(title=form.cleaned_data["title"],
                         description = form.cleaned_data["description"],
-                        imageUrl=form.cleaned_data["imageUrl"],
+                        image=req.FILES["image"],
                         isActive = True)
             kurs.save()
             return redirect('/kurslar/')
@@ -67,7 +67,7 @@ def kursDuzenle(req,slug):
 
     kurs = get_object_or_404(Kurs,slug = slug)
     if req.method == "POST":
-        form = KursGiris(req.POST, instance=kurs)
+        form = KursGiris(req.POST, req.FILES, instance=kurs)
         form.save()
         return redirect("/kurslar/kursListesi")
     form = KursGiris(instance=kurs)
@@ -82,7 +82,19 @@ def kursSil(req,slug):
         return redirect("kursListesi")
     return render(req,'kursSil.html',{'kurs':kurs})
 
-def imgUpload(req):
-    if req.method == "POST":
-        uploaded_image = req.FILES['image']
-        return render(req,'success.html') 
+# def imgUpload(req):
+#     if req.method == "POST":
+#         if form.is_valid():
+#             kurs = 
+#             uploaded_images = Kurs(instance = kurs,image=req.FILES["image"])
+#             uploaded_images.save()
+#             return render(req,"success.html")
+#     else:
+#         form = UploadForm()
+#         return render(req,'upload.html',{'form':form})
+
+    
+
+
+        
+    
