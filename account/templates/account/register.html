@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block Content %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12">
+            <form method="post" >
+                {% csrf_token %}
+                {% if error %}
+                <div class="alert alert-danger">
+                    {{error}}
+                </div>
+                {% endif %}
+                {% comment %} {{form.as_div}} {% endcomment %}
+                <div class="mb-3">
+                    <label for="username" class="form-label">Kullanıcı Adı</label>
+                    <input type="text" name="username" class="form-control" id="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">İsminizi girin</label>
+                    <input type="text" name="name" class="form-control" id="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="surname" class="form-label">Soyisminizi girin</label>
+                    <input type="text" name="surname" class="form-control" id="surname" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label" >Şifre</label>
+                    <input type="password" name="password" class="form-control" id="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label" >Şifreyi tekrar girin</label>
+                    <input type="password" name="password2" class="form-control" id="password2" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label" >Epostanızı girin</label>
+                    <input type="email" name="email" class="form-control" id="email" required>
+                </div>
+                
+                
+                <button class="btn btn-primary" type="submit">Giriş Yap</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock  %}

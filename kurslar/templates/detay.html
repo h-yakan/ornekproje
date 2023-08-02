@@ -8,7 +8,7 @@
         <div class="col-3">
            
             <!--Menü-->
-            <img class="img-fluid rounded" src="{{kurs.image}}" alt={{kurs.title}}>
+            <img class="img-fluid rounded" src="{% if kurs.image != "" %}{{kurs.image.url}}{% endif %}" alt={{kurs.title}}>
         </div>
         <div class="col-9">
             <h1 class="h3">{{kurs.title}}</h1>

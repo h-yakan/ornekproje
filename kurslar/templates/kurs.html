@@ -18,7 +18,7 @@
             {% for kurs in Kurslar %}
             <div class="container mt-3">
                 <div class="card" style="width: 12rem;">
-                    <img class="card-img-left" src="{{kurs.imageUrl}}" alt="Card image cap">
+                    <img class="card-img-left" src="{% if kurs.image != "" %}{{kurs.image.url}}{% endif %}" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{kurs.title}}</h5>
                         <p class="card-text">{{kurs.description}}</p>
