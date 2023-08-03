@@ -10,7 +10,9 @@
     <div class="carousel-inner">
         {% for slide in sliders %}
         <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
+            <a href="{% url 'courses' slide.kurs.slug %}">
              <img src="{{slide.image.url}}" class="d-block w-100" alt="">
+            </a>
         </div>
         {% endfor %}
     </div>

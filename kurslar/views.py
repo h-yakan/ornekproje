@@ -18,7 +18,7 @@ def index(req):
    kategoriler = Kategoriler.objects.all()
    slider = Slider.objects.filter(isActive = True)
 
-   return render(req,'kurs.html',{'Kurslar': paged_kurs, 'slider':slider, 'Kategoriler': kategoriler} )
+   return render(req,'kurs.html',{'Kurslar': paged_kurs, 'sliders':slider, 'Kategoriler': kategoriler} )
 
 def detay(req,name):
     try:
