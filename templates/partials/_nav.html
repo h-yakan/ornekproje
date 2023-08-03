@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
     <div class="container">
         <a href="/" class="navbar-brand">Kurs Uygulaması</a>
-        <ul class="navbar-nav me-auto">
-            <li class="nav-item">
+        <ul class="navbar-nav me-1">
+            <li class="nav-item ">
                 <a href="/kurslar" class="nav-link">Kurslar</a>
             </li>
             <li class="nav-item">
@@ -11,14 +11,18 @@
             <li class="nav-item">
                 <a href="/hakkimizda" class="nav-link">Hakkımızda</a>
             </li>
+            {% if user.is_superuser %}
             <li class="nav-item">
                 <a href="/kurslar/kursKayit" class="nav-link">Kurs Kaydet</a>
             </li>
             <li class="nav-item">
                 <a href="/kurslar/kursListesi" class="nav-link">Kurs Listesi</a>
             </li>
-            <form action="{% url 'search' %}">
-                <input class="form-control me-1" type="text" name="q" placeholder="Neyi arıyorsun?">
+            
+            {% endif %}
+            
+            <form action="{% url 'search' %} "class="">
+                <input class="form-control" type="text" name="q" placeholder="Neyi arıyorsun?">
                 <button type="submit" class="btn btn-secondary">Ara</button>
             </form>
         </ul>
@@ -29,6 +33,9 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">{{user}}</a>
+            </li>
+            <li class="nav-item">
+                <a href="/account/changePassword" class="nav-link">Şifreni Değiştir</a>
             </li>
             {% else %}
             <li class="nav-item">

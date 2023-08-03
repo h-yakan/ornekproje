@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Kurs,Kategoriler    
+from .models import Kurs,Kategoriler, Slider    
 # Register your models here.
 @admin.register(Kurs)
 class KursAdmin(admin.ModelAdmin):
@@ -12,6 +12,7 @@ class KursAdmin(admin.ModelAdmin):
             html +=kategori.name
         return html
 
+admin.site.register(Slider)
 
 @admin.register(Kategoriler)
 class KategorilerAdmin(admin.ModelAdmin):

@@ -1,0 +1,23 @@
+{% load static %}
+
+
+ <div class="carousel slide mb-3" data-bs-ride="carousel" id="slider">
+    <div class="carousel-indicators">
+        {% for slider in sliders %}
+        <button type="button" data-bs-target="#slider" data-bs-slide="{{forloop.counter0}}" {% if forloop.counter0 == 0 %}class="active"{% endif %} ></button>
+        {% endfor %}
+    </div>
+    <div class="carousel-inner">
+        {% for slide in sliders %}
+        <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
+             <img src="{{slide.image.url}}" class="d-block w-100" alt="">
+        </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" data-bs-target="#slider" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" data-bs-target="#slider" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+ </div>

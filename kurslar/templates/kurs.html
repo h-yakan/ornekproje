@@ -7,10 +7,13 @@
             <!--Menü-->
             <div class="container mt-3">
                 {% include 'partials/_menu.html' %}
-
+                
             </div>
         </div>
         <div class="col-9">
+            <div>
+                {% include 'partials/_slider.html' %}
+            </div>
             {% if Kurslar|length == 0 %}
             <div class="alert alert-warning">Kurs Bulunamadı</div>
             {% endif %}
