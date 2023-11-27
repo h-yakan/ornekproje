@@ -22,4 +22,4 @@ COPY . .
 RUN python3 manage.py makemigrations
 RUN python3 manage.py migrate
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+RUN gunicorn urlshortener.wsgi:application --bind 0.0.0.0:8000
