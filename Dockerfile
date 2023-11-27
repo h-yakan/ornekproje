@@ -13,6 +13,8 @@ RUN apt-get update && apt-get install -y netcat
 
 # install dependencies
 RUN pip install --upgrade pip
+RUN pip install psycopg2
+RUN pip install psycopg2[binary]
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
@@ -21,3 +23,5 @@ COPY . .
 
 RUN python3 manage.py makemigrations
 RUN python3 manage.py migrate
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
