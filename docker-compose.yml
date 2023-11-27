@@ -10,8 +10,15 @@ services:
       volumes:
         - .:/usr/src/app/
       env_file:
-      - ./.env.dev
-      
+        - ./.env.dev
+    nginx:
+      build: ./nginx
+      ports:
+        - 1337:80
+      volumes:
+        - static_volume:/home/app/web/staticfiles
+      depends_on:
+        - web
     db:
       image: postgres:15
       volumes:
