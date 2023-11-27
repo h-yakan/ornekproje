@@ -16,9 +16,9 @@ services:
       ports:
         - 1337:80
       volumes:
-        - static_volume:/home/app/web/staticfiles
+        - static_volume:/usr/src/app/staticfiles
       depends_on:
-        - web
+        - django
     db:
       image: postgres:15
       volumes:
