@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-    django:
+    web:
       build: .
-      container_name: ornekproje
+      container_name: web
       ports:
         - 8000:8000
       volumes:
@@ -17,7 +17,7 @@ services:
       volumes:
         - static_volume:/usr/src/app/staticfiles
       depends_on:
-        - django
+        - web
     db:
       image: postgres:15
       volumes:
