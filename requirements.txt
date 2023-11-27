@@ -4,5 +4,4 @@ Pillow==10.0.0
 sqlparse==0.4.4
 tzdata==2023.3
 gunicorn
-psycopg2
-psycopg[binary]
+
