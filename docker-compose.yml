@@ -10,6 +10,7 @@ services:
         - .:/usr/src/app/
       env_file:
         - ./.env.dev
+      command: gunicorn ornekproje.wsgi:application --bind 0.0.0.0:8000
     nginx:
       build: ./nginx
       ports:
