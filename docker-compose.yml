@@ -11,8 +11,7 @@ services:
         - .:/usr/src/app/
       env_file:
       - ./.env.dev
-      depends_on:
-        - redis
+      
     db:
       image: postgres:15
       volumes:
@@ -22,13 +21,5 @@ services:
         - POSTGRES_PASSWORD=hello_django
         - POSTGRES_DB=hello_django_dev
     
-    redis: 
-      image: "redis:alpine"
-    
-      volumes:
-        - .:/usr/src/app/
-      depends_on:
-        - django
-        - redis
 volumes:
   postgres_data:
