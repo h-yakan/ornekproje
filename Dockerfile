@@ -21,5 +21,3 @@ COPY . .
 
 RUN python3 manage.py makemigrations
 RUN python3 manage.py migrate
-
-ENTRYPOINT ["/app/docker-entrypoint.sh"]
